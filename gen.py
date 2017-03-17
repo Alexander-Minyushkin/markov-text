@@ -17,7 +17,7 @@ class Generator:
 				return w
 		assert False
 
-	def generate(self, word_separator):
+	def generate(self, word_separator):     
 		depth = self.db.get_depth()
 		sentence = [Parser.SENTENCE_START_SYMBOL] * (depth - 1)
 		end_symbol = [Parser.SENTENCE_END_SYMBOL] * (depth - 1)

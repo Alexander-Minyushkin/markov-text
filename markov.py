@@ -1,5 +1,6 @@
 from db import Db
 from gen import Generator
+from genWithSeed import GenratorWithSeed
 from parse import Parser
 from sql import Sql
 from rnd import Rnd
@@ -39,6 +40,14 @@ if __name__ == '__main__':
 		generator = Generator(name, db, Rnd())
 		for i in range(0, count):
 			print generator.generate(WORD_SEPARATOR)
+
+	elif mode == 'seed':
+		seed_word = args[3]        
+		count = int(args[4])
+		db = Db(sqlite3.connect(name + '.db'), Sql())
+		generator = GenratorWithSeed(name, db, Rnd())
+		for i in range(0, count):
+			print generator.generate_to_right([seed_word], WORD_SEPARATOR)
 	
 	else:
 		raise ValueError(usage)
