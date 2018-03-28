@@ -54,3 +54,12 @@ class Db:
 			counts[row[0]] = row[1]
 
 		return counts
+
+	def get_word_count_to_left(self, word_list):
+		counts = {}
+		sql = self.sql.select_words_and_counts_sql_to_left(self.get_depth())
+		for row in self.cursor.execute(sql, word_list):
+			counts[row[0]] = row[1]
+
+		return counts
+		

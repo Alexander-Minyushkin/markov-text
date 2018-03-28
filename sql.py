@@ -17,6 +17,9 @@ class Sql:
     def _make_column_names_and_placeholders(self, column_count):
         return ' AND '.join(['%s%s=?' % (self.WORD_COL_NAME_PREFIX, n) for n in range(1, column_count + 1)])
 
+    def _make_column_names_and_placeholders_to_left(self, column_count):
+        return ' AND '.join(['%s%s=?' % (self.WORD_COL_NAME_PREFIX, n) for n in range(2, column_count + 2)])
+
     def create_word_table_sql(self, column_count):
         return 'CREATE TABLE IF NOT EXISTS %s (%s, %s)' % (self.WORD_TABLE_NAME, self._make_column_name_list(column_count), self.COUNT_COL_NAME)
     
@@ -48,7 +51,13 @@ class Sql:
         last_word_col_name = self.WORD_COL_NAME_PREFIX + str(column_count)
         
         return 'SELECT %s, %s FROM %s WHERE %s' % (last_word_col_name, self.COUNT_COL_NAME, self.WORD_TABLE_NAME, self._make_column_names_and_placeholders(column_count - 1))
-    
+
+    def select_words_and_counts_sql_to_left(self, column_count):
+        first_word_col_name = self.WORD_COL_NAME_PREFIX + str(1)
+        
+        return 'SELECT %s, %s FROM %s WHERE %s' % (first_word_col_name, self.COUNT_COL_NAME, self.WORD_TABLE_NAME, self._make_column_names_and_placeholders_to_left(column_count - 1))
+
+
     def delete_words_sql(self):
         return 'DELETE FROM ' + self.WORD_TABLE_NAME
         

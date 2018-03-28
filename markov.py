@@ -47,7 +47,7 @@ if __name__ == '__main__':
 		db = Db(sqlite3.connect(name + '.db'), Sql())
 		generator = GenratorWithSeed(name, db, Rnd())
 		for i in range(0, count):
-			print generator.generate_to_right([seed_word], WORD_SEPARATOR)
+			print generator.generate_from_center([seed_word], WORD_SEPARATOR)
 	
 	else:
 		raise ValueError(usage)
