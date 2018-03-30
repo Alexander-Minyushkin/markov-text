@@ -11,11 +11,11 @@ from gen import  Generator
 import collections
 
 class GenratorWithSeed(Generator):
-    """
-    GenratorWithSeed have to generate phrase with predefined word in it
-    """
-    
-    def _get_prev_word(self, word_list):
+	"""
+	GenratorWithSeed have to generate phrase with predefined word in it
+	"""
+	
+	def _get_prev_word(self, word_list):
 		candidate_words = self.db.get_word_count_to_left(word_list)
 		total_next_words = sum(candidate_words.values())
 		i = self.rnd.randint(total_next_words)
@@ -26,7 +26,7 @@ class GenratorWithSeed(Generator):
 				return w
 		assert False
 
-    def generate_to_right(self, seedWords=[], word_separator=' '):
+	def generate_to_right(self, seedWords=[], word_separator=' '):
 		depth = self.db.get_depth()
 		sentence = [Parser.SENTENCE_START_SYMBOL] * (depth - 1)
 		end_symbol = [Parser.SENTENCE_END_SYMBOL] * (depth - 1)
@@ -44,7 +44,7 @@ class GenratorWithSeed(Generator):
         
 		return word_separator.join(sentence[depth-1:][:1-depth])
 
-    def generate_to_left(self, seedWords=[], word_separator=' '):
+	def generate_to_left(self, seedWords=[], word_separator=' '):
 		depth = self.db.get_depth()
 		sentence = collections.deque()		
 		start_symbol = [Parser.SENTENCE_START_SYMBOL] * (depth - 1)
@@ -62,7 +62,7 @@ class GenratorWithSeed(Generator):
         
 		return word_separator.join(list(sentence)[depth-1:][:1-depth])
 
-    def generate_from_center(self, seedWords=[], word_separator=' '):
+	def generate_from_center(self, seedWords=[], word_separator=' '):
 		leftPart = self.generate_to_left(seedWords, word_separator)
 		rightPart = self.generate_to_right(seedWords, word_separator)		
 		return leftPart + word_separator + rightPart
