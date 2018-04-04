@@ -10,5 +10,6 @@ setup(name='markov',
       url='https://github.com/codebox',
       maintainer='Alexander Minyushkin',
       maintainer_email = "alexander.minushkin@gmail.com",
-      requires = ['sys', 'sqlite3', 'codecs']
+      requires = ['sys', 'sqlite3', 'codecs'],
+      packages = ['markov'],
      )
