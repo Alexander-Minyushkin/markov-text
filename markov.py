@@ -1,9 +1,9 @@
-from db import Db
-from gen import Generator
-from genWithSeed import GenratorWithSeed
-from parse import Parser
-from sql import Sql
-from rnd import Rnd
+from markov import Db
+from markov import Generator
+from markov import GenratorWithSeed
+from markov import Parser
+from markov import Sql
+from markov import Rnd
 import sys
 import sqlite3
 import codecs

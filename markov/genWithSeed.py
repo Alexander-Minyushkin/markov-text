@@ -5,8 +5,8 @@ Created on Fri Mar 17 12:43:12 2017
 @author: minushkin
 """
 
-from parse import Parser
-from gen import  Generator
+from .parse import Parser
+from .gen import  Generator
 
 import collections
 
