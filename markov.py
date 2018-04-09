@@ -13,7 +13,7 @@ WORD_SEPARATOR = ' '
 
 if __name__ == '__main__':
 	args = sys.argv
-	usage = 'Usage: %s (parse <name> <depth> <path to txt file>|gen <name> <count>)' % (args[0], )
+	usage = 'Usage: %s (parse <name> <depth> <path to txt file>|gen <name> <count>|seed <name> <"seed words"> <count>)' % (args[0], )
 
 	if (len(args) < 3):
 		raise ValueError(usage)
@@ -47,7 +47,8 @@ if __name__ == '__main__':
 		db = Db(sqlite3.connect(name + '.db'), Sql())
 		generator = GenratorWithSeed(name, db, Rnd())
 		for i in range(0, count):
-			print(generator.generate_from_center([seed_word], WORD_SEPARATOR))
+			print(generator.generate_from_center(seed_word.split(WORD_SEPARATOR), WORD_SEPARATOR))
+			print('\n')
 	
 	else:
 		raise ValueError(usage)

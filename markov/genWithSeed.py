@@ -60,7 +60,7 @@ class GenratorWithSeed(Generator):
 		except ValueError:
 				return self.generate(word_separator)
         
-		return word_separator.join(list(sentence)[depth-1:][:1-depth])
+		return word_separator.join(list(sentence)[depth-1:][:0-len(seedWords)])
 
 	def generate_from_center(self, seedWords=[], word_separator=' '):
 		leftPart = self.generate_to_left(seedWords, word_separator)
