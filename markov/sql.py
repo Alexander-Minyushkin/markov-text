@@ -2,6 +2,7 @@ class Sql:
     WORD_COL_NAME_PREFIX = 'word'
     COUNT_COL_NAME       = 'count'
     WORD_TABLE_NAME      = 'word'
+    SYNONYM_TABLE_NAME   = 'synonym'    
     INDEX_NAME           = 'i_word'
     PARAM_TABLE_NAME     = 'param'
     KEY_COL_NAME         = 'name'
@@ -22,6 +23,9 @@ class Sql:
 
     def create_word_table_sql(self, column_count):
         return 'CREATE TABLE IF NOT EXISTS %s (%s, %s)' % (self.WORD_TABLE_NAME, self._make_column_name_list(column_count), self.COUNT_COL_NAME)
+
+    def create_synonym_table_sql(self):
+        return 'CREATE TABLE IF NOT EXISTS %s (key, syn)' % (self.SYNONYM_TABLE_NAME)
     
     def create_param_table_sql(self):
         return 'CREATE TABLE IF NOT EXISTS %s (%s, %s)' % (self.PARAM_TABLE_NAME, self.KEY_COL_NAME, self.VAL_COL_NAME)
@@ -46,6 +50,9 @@ class Sql:
         values  = ', '.join(['?'] * (column_count + 1))
         
         return 'INSERT INTO %s (%s) VALUES (%s)' % (self.WORD_TABLE_NAME, columns, values) 
+    
+    def insert_synonym_sql(self, key, syn):        
+        return 'INSERT INTO %s (key, syn) VALUES ("%s", "%s")' % (self.SYNONYM_TABLE_NAME, key, syn) 
     
     def select_words_and_counts_sql(self, column_count):
         last_word_col_name = self.WORD_COL_NAME_PREFIX + str(column_count)

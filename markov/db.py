@@ -13,6 +13,7 @@ class Db:
 		self.cursor.execute(self.sql.create_word_table_sql(depth))
 		self.cursor.execute(self.sql.create_index_sql(depth))
 		self.cursor.execute(self.sql.create_param_table_sql())
+		self.cursor.execute(self.sql.create_synonym_table_sql())
 		self.cursor.execute(self.sql.set_param_sql(), (self.DEPTH_PARAM_NAME, depth))
 
 	def _get_word_list_count(self, word_list):
@@ -44,6 +45,9 @@ class Db:
 		else:
 			self.cursor.execute(self.sql.insert_row_for_words_sql(self.get_depth()), word_list + [1])
 
+	def add_synonyms(self, key, syn):
+         self.cursor.execute(self.sql.insert_synonym_sql(key, syn))
+     
 	def commit(self):
 		self.conn.commit()
 

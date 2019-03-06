@@ -12,9 +12,9 @@ class Parser:
 		self.word_split_char = word_split_char
 		self.whitespace_regex = re.compile('\s+')
 
-	def parse(self, txt):
+	def parse_array(self, sentences):
 		depth = self.db.get_depth()
-		sentences = txt.split(self.sentence_split_char)
+
 		i = 0
 
 		for sentence in sentences:
@@ -37,5 +37,28 @@ class Parser:
 				sys.stdout.flush()
 		
 		self.db.commit()
+
+	def parse(self, txt):
+		sentences = txt.split(self.sentence_split_char)
+		self.parse_array(sentences)
+  
+     
+	def parse_synonyms(self, txt):
+		pairs = txt.split(self.sentence_split_char)
+		i = 0
+
+		for pair in pairs:
+			list_of_words = pair.split(",")
+			if len(list_of_words) !=2:
+				break
+
+			self.db.add_synonyms(list_of_words[0], list_of_words[1])
+   
+			i += 1
+			if i % 1000 == 0:
+				print(i)
+				sys.stdout.flush()
+		
+		self.db.commit()   
 
 

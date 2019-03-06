@@ -13,7 +13,7 @@ WORD_SEPARATOR = ' '
 
 if __name__ == '__main__':
 	args = sys.argv
-	usage = 'Usage: %s (parse <name> <depth> <path to txt file>|gen <name> <count>|seed <name> <"seed words"> <count>)' % (args[0], )
+	usage = 'Usage: %s (parse <name> <depth> <path to txt file>|syn <name> <synonyms file>|gen <name> <count>|seed <name> <"seed words"> <count>)' % (args[0], )
 
 	if (len(args) < 3):
 		raise ValueError(usage)
@@ -33,7 +33,18 @@ if __name__ == '__main__':
 		
 		txt = codecs.open(file_name, 'r', 'utf-8').read()
 		Parser(name, db, SENTENCE_SEPARATOR, WORD_SEPARATOR).parse(txt)
-	
+  
+	elif mode == 'syn':
+		if (len(args) != 4):
+			raise ValueError(usage)
+		
+		file_name = args[3]
+		
+		db = Db(sqlite3.connect(name + '.db'), Sql())
+		
+		txt = codecs.open(file_name, 'r', 'utf-8').read()
+		Parser(name, db, SENTENCE_SEPARATOR, WORD_SEPARATOR).parse_synonyms(txt)
+  
 	elif mode == 'gen':
 		count = int(args[3])
 		db = Db(sqlite3.connect(name + '.db'), Sql())
